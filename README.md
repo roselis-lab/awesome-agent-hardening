@@ -8,6 +8,8 @@
 
 This list is for developers who build agents. It assumes any model output can be the worst possible one: an attacker wrote it, the user asked for the wrong thing, or the model got it wrong on its own. Nothing here relies on the model behaving. Each section takes one thing an agent can be given, lists public incidents with their primary sources, and then lists controls that hold outside the model.
 
+If the list saves you time, give it a star so other people who build agents can find it too.
+
 Each control names the principle it applies:
 
 | Principle         | What holds whatever the model says                                                                 |
@@ -164,4 +166,4 @@ Contributions are welcome. Please read the [contribution guidelines](contributin
 
 ## Footnotes
 
-Pica the magpie is the mascot of the author's talks, drawn after Charley Harper. Each scene shows the problem its section is about.
+Compiled by [Alexander Goncharov](https://www.linkedin.com/in/alexander-goncharov-600510234/). Pica the magpie is the mascot of his talks, drawn after Charley Harper. Each scene shows the problem its section is about.
