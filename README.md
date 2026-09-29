@@ -156,7 +156,7 @@ Each control names the principle it applies:
 
 ## Lectures
 
-[Безопасность агентов для тех, кто их строит](lectures/shad-2026-09.md), Yandex School of Data Analysis, 29 September 2026, in Russian. One agent gets its capabilities one at a time, and each one comes with a real incident and the place to stop it.
+[Безопасность агентов для тех, кто их строит](lectures/shad-2026-09.md), Yandex School of Data Analysis, 29 September 2026, in Russian, with [slides](lectures/shad-2026-09.pdf). One agent gets its capabilities one at a time, and each one comes with a real incident and the place to stop it.
 
 ## Contributing
 
