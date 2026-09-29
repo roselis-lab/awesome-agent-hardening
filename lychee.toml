@@ -1,0 +1,9 @@
+# Sites that answer 403 to automated clients but open in a browser.
+exclude = [
+  "^https://www\.aim\.security/",
+  "^https://www\.nccoe\.nist\.gov/",
+  "^https://fortune\.com/",
+]
+max_retries = 3
+timeout = 30
+accept = ["200..=299", "429"]
