@@ -41,6 +41,7 @@ Each control names the principle it applies:
 - [The lethal trifecta for AI agents](https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/) - An agent with private data, untrusted content and a way to send data out can be made to leak it. Author's note: don't try to remove the untrusted leg by sorting inputs into trusted and untrusted, because the user's own request or a plain model mistake produces the worst output too; cut access to private data or the way out instead.
 - [Design Patterns for Securing LLM Agents against Prompt Injections](https://arxiv.org/abs/2506.08837) - Six patterns that limit what an agent can still do after it has read untrusted input.
 - [Defeating Prompt Injections by Design](https://arxiv.org/abs/2503.18813) - CaMeL takes control flow from the trusted request, so injected text cannot change which tools run.
+- [CaMeL](https://github.com/google-research/camel-prompt-injection) - Data flow control: research code that reproduces the paper above on AgentDojo; the authors warn that it is unmaintained and may not be fully secure.
 - [Securing AI Agents with Information-Flow Control](https://arxiv.org/abs/2505.23643) - Data flow control: FIDES from Microsoft Research labels data by confidentiality and integrity and enforces the policy in the planner, outside the model.
 - [FIDES](https://github.com/microsoft/fides) - Data flow control: code and a tutorial for the paper above.
 - [The Attacker Moves Second](https://arxiv.org/abs/2510.09023) - Adaptive attacks broke twelve published prompt injection defenses, so a filter can tell you something is off but cannot stop the leak.
@@ -59,9 +60,21 @@ Each control names the principle it applies:
   <img src="media/mail-and-rag.gif" width="520" alt="Pica checks a shiny note that says refund all, hesitates, and the shine wins.">
 </p>
 
+### Incidents
+
 - [EchoLeak](https://www.aim.security/lp/aim-labs-echoleak-blogpost) - Zero-click leak from Microsoft 365 Copilot: instructions in an email made the answer carry data in an image URL, and the browser fetched it through a Teams proxy.
 - [EchoLeak: The First Real-World Zero-Click Prompt Injection Exploit](https://arxiv.org/abs/2509.10540) - The paper on the same chain, with the classifier bypass and the reference-style Markdown image.
 - [CVE-2025-32711](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-32711) - Microsoft fixed it on the server side, and customers had nothing to do.
+
+### Controls
+
+- [How Microsoft defends against indirect prompt injection attacks](https://www.microsoft.com/en-us/msrc/blog/2025/07/how-microsoft-defends-against-indirect-prompt-injection-attacks) - Output handling: known ways out, such as Markdown images, are blocked deterministically, while hardened prompts and classifiers are counted as probabilistic layers on top.
+- [Best practices to render streamed LLM responses](https://developer.chrome.com/docs/ai/render-llm-responses) - Output handling: treat model output as user-generated content, sanitize the whole accumulated response because a payload can be split across chunks, and stop rendering once the sanitizer removes anything.
+- [Practical LLM Security Advice from the NVIDIA AI Red Team](https://developer.nvidia.com/blog/practical-llm-security-advice-from-the-nvidia-ai-red-team/) - Output handling: the three findings the red team keeps seeing (executed model code, loose permissions on RAG stores, rendered active content) and a fix for each, such as an image content security policy limited to known sites.
+- [The dangers of AI agents unfurling hyperlinks and what to do about it](https://embracethered.com/blog/posts/2024/the-dangers-of-unfurling-and-what-you-can-do-about-it/) - Output handling: a chat platform that previews links fetches whatever URL the model wrote, so a Slack app should post with `unfurl_links` and `unfurl_media` set to false.
+- [A Security Model for Full-Text File System Search in Multi-User Environments](https://www.usenix.org/conference/fast-05/security-model-full-text-file-system-search-multi-user-environments) - Data flow control: a 2005 paper showing that a shared index with permissions applied as a postprocessing step still leaks what is in files a user cannot read; a RAG index shared by many users has the same problem.
+- [Implement multitenancy](https://docs.pinecone.io/guides/index-data/implement-multitenancy) - Data flow control: one namespace per tenant keeps each customer's records stored apart and binds every query to a single namespace, which lowers the risk of a bug returning another tenant's data.
+- [About Dangerzone](https://dangerzone.rocks/about/) - Isolation: opens an untrusted document inside a gVisor sandbox with no network, turns the pages into pixels and rebuilds a PDF from them outside, so only what the pages look like gets through.
 
 ## Tools and MCP
 
@@ -80,6 +93,13 @@ Each control names the principle it applies:
 
 - [MCP Security Best Practices](https://modelcontextprotocol.io/docs/2026-07-28/tutorials/security/security_best_practices) - Least privilege: why a server must not pass client tokens through or act as a confused deputy.
 - [MCP Authorization Security Considerations](https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization/security-considerations) - Least privilege: what the specification requires of tokens and scopes.
+- [Progent: Securing AI Agents with Privilege Control](https://arxiv.org/abs/2504.11703) - Least privilege: every tool call is checked against rules over tool names and arguments, and a policy update that widens access needs explicit approval.
+- [Before the Tool Call: Deterministic Pre-Action Authorization for Autonomous AI Agents](https://arxiv.org/abs/2603.20953) - Least privilege: a declarative policy is evaluated before each tool call runs; in the author's bounty test social engineering worked on the model 74.6% of the time under a permissive policy and never in 879 attempts under a restrictive one.
+- [Authorization API 1.0](https://openid.net/specs/authorization-api-1_0.html) - Least privilege: the OpenID AuthZEN specification for asking an external policy decision point whether a subject may perform an action on a resource, which keeps the decision in one place outside the agent.
+- [COAZ-MCP: COAZ Binding for the Model Context Protocol](https://openid.github.io/authzen/authzen-coaz-mcp-binding-1_0.html) - Least privilege: a draft that maps MCP messages onto the Authorization API above, so a gateway or server can authorize a call down to its parameters.
+- [Securing MCP: A Control Plane for Agent Tool Execution](https://developer.microsoft.com/blog/securing-mcp-a-control-plane-for-agent-tool-execution) - Least privilege: MCP has no point where policy is checked before a call runs, so Microsoft's open-source toolkit puts one between the client and the servers; with safety instructions in the prompt alone its red-team benchmark recorded a 26.67% policy violation rate.
+- [LangChain Tools](https://docs.langchain.com/oss/python/langchain/tools) - Least privilege: a `ToolRuntime` parameter is filled in by the framework and left out of the schema the model sees, so values like the user ID come from the session and the model cannot choose them.
+- [Server Side Request Forgery Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html) - Output handling: how to check a host or URL before fetching it, which is what a fetch tool has to do with an argument the model wrote: compare against an allowlist, use the parser's output value and switch redirects off.
 
 ## Shell and Files
 
@@ -102,6 +122,11 @@ Each control names the principle it applies:
 </p>
 
 - [Making Claude Code more secure and autonomous with sandboxing](https://www.anthropic.com/engineering/claude-code-sandboxing) - Isolation: the filesystem and the network are isolated together, and permission prompts dropped by 84%.
+- [Practical Security Guidance for Sandboxing Agentic Workflows and Managing Execution Risk](https://developer.nvidia.com/blog/practical-security-guidance-for-sandboxing-agentic-workflows-and-managing-execution-risk/) - Isolation: three controls NVIDIA's red team treats as mandatory at the OS level: block network egress to unknown hosts, block writes outside the workspace, and block writes to agent configuration files wherever they are.
+- [Under the hood: Security architecture of GitHub Agentic Workflows](https://github.blog/ai-and-ml/generative-ai/under-the-hood-security-architecture-of-github-agentic-workflows/) - Isolation: the agent runs in a container with no secrets and firewalled egress, and its writes are staged, capped in number and checked after it exits.
+- [How we contain Claude across products](https://www.anthropic.com/engineering/how-we-contain-claude) - Isolation: three containment designs for claude.ai, Claude Code and Cowork, written after users approved about 93% of permission prompts; credentials that never enter the sandbox cannot leave it.
+- [gVisor Security Model](https://gvisor.dev/docs/architecture_guide/security/) - Isolation: what a user-space kernel protects against, which is untrusted code exploiting bugs in the host kernel, and what it leaves open, such as hardware side channels.
+- [OpenAI Shell tool](https://developers.openai.com/api/docs/guides/tools-shell) - Isolation: the hosted shell reaches the network only through a domain allowlist, and with `domain_secrets` a sidecar adds the real credential for an approved domain while the model sees a placeholder.
 
 ## Browser
 
@@ -140,6 +165,13 @@ Each control names the principle it applies:
 - [RFC 8693, OAuth 2.0 Token Exchange](https://www.rfc-editor.org/rfc/rfc8693) - Least privilege: one narrow token that names both the user and the agent acting for them.
 - [OWASP Non-Human Identities Top 10](https://owasp.org/www-project-non-human-identities-top-10/) - Least privilege: the usual ways service and agent credentials go wrong.
 - [Software and AI agent identity and authorization](https://www.nccoe.nist.gov/sites/default/files/2026-02/accelerating-the-adoption-of-software-and-ai-agent-identity-and-authorization-concept-paper.pdf) - Data flow control: a NIST NCCoE concept paper on identifying and authorizing agents.
+- [RFC 8707, Resource Indicators for OAuth 2.0](https://www.rfc-editor.org/rfc/rfc8707) - Least privilege: the client names the resource it wants a token for, so the server can issue one that works at that resource only.
+- [RFC 9449, OAuth 2.0 Demonstrating Proof of Possession (DPoP)](https://www.rfc-editor.org/rfc/rfc9449) - Least privilege: a token bound to the client's key, so whoever copies the token also needs the key to use it.
+- [Identity Assertion JWT Authorization Grant](https://datatracker.ietf.org/doc/draft-ietf-oauth-identity-assertion-authz-grant/) - Least privilege: an IETF draft, also called Cross-App Access, in which the company identity provider decides whether an application may get a token for another application's API on the user's behalf.
+- [Cross-App Access](https://oauth.net/cross-app-access/) - Least privilege: a plain-language explainer of the draft above with a list of identity providers, clients and authorization servers that implement it.
+- [Transaction Tokens](https://datatracker.ietf.org/doc/draft-ietf-oauth-transaction-tokens/) - Least privilege: an IETF draft for a short-lived token that carries the user, the workload and the authorization context of one request through the services that handle it.
+- [Credential injector](https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/credential_injector_filter) - Isolation: an Envoy filter that adds the credential to outgoing requests in a sidecar, so the workload behind the proxy sends them without the secret.
+- [Credential Brokering Patterns for AI Agents Part 1: Don't Give the Agent the Keys](https://blog.christianposta.com/credential-brokering-patterns-for-ai-agent-egress/) - Isolation: compares short-lived tokens, key-bound tokens and a gateway that attaches the real credential on the way out, and argues for the gateway; the author works for a gateway vendor.
 
 ## Human Approval and Classifiers
 
@@ -149,6 +181,7 @@ Each control names the principle it applies:
 
 - [Auto mode is now the default in Claude Code](https://claude.com/blog/auto-mode-default-in-claude-code) - In Anthropic's test people caught 13.6% of dangerous commands and the classifier caught 89%. Both still miss some, so they belong inside a sandbox.
 - [How we built Claude Code auto mode](https://www.anthropic.com/engineering/claude-code-auto-mode) - How the permission classifier is built and which overeager actions it still misses.
+- [AuthZEN Access Request and Approval Profile](https://openid.github.io/authzen/authzen-access-request-approval-profile-1_0.html) - Least privilege: a draft in which a denied call can open an approval request, the denial stays a denial until then, and the policy decision point checks again at enforcement time after approval.
 
 ## Frameworks
 
