@@ -10,26 +10,9 @@ This list is for developers who build agents. It assumes any model output can be
 
 If the list saves you time, give it a star so other people who build agents can find it too.
 
-How I decide whether something counts as a control:
-
-1. Assume the worst output. Whatever went in, treat what the model says as if an attacker wrote it, and decide by what that output can reach
-2. A control sits outside the model. A prompt or a classifier lowers the odds, and that's all it does
-3. If it's cheap to get around and nobody would notice, I don't count it as a control. Shadow AI is one of the sharpest problems an enterprise has, and one of the most underrated. An agent with computer use or web scraping looks exactly like its user and goes straight past your centralized defenses, the same ones that usually make the UX worse. So with AI this decentralized, doing security means looking after UX
-4. Test it without the model: call the tool yourself with the bad value and see what happens. Don't fall for the prompt-testing hype before you have a threat model and have read rules 1 and 2 properly. Sometimes plain [Burp Suite](https://portswigger.net/burp) does the job better
-5. Rights only get narrower down the chain. And I wouldn't take the word of the party I'm restricting, which includes the tool descriptions it wrote
-
-Each control names the principle it applies:
-
-| Principle         | What holds whatever the model says                                                                 |
-| ----------------- | -------------------------------------------------------------------------------------------------- |
-| Least privilege   | The agent reaches only what was granted for this task.                                             |
-| Isolation         | What the agent runs stays in a sandbox with no secrets, and nothing outside trusts what it writes. |
-| Data flow control | Data goes only to people allowed to read everything it came from.                                  |
-| Output handling   | Model output is data; the system decides what it may trigger.                                      |
-| Recoverability    | Any agent mistake can be rolled back, and the system caps how big it can get.                      |
-
 ## Contents
 
+- [Ground Rules](#ground-rules)
 - [Principles](#principles)
 - [Model Only](#model-only)
 - [Mail and RAG](#mail-and-rag)
@@ -44,6 +27,19 @@ Each control names the principle it applies:
 - [Testing](#testing)
 - [Frameworks](#frameworks)
 - [Lectures](#lectures)
+
+## Ground Rules
+
+I write security practices for agent platforms and review what teams build on them. Boiled down, it's eight rules
+
+1. A control has to sit outside the model. A prompt or a classifier only lowers the odds
+2. If it's cheap to get around and nobody would notice, I don't count it as a control. This is why I think shadow AI is badly underrated in enterprises, and it's one of the sharpest problems they have. Give an agent computer use or web scraping and it looks exactly like its user, so it goes straight past the centralized defenses, which were often making the UX worse anyway. With AI this decentralized you can't do security without looking after UX
+3. Test a control without the model in the loop. Call the tool yourself with the bad value and see what happens. And don't fall for the prompt-testing hype until you have a threat model and have read rules 1 and 2 properly. Sometimes plain [Burp Suite](https://portswigger.net/burp) does the job better
+4. Give the agent the least privilege the task needs. Rights only get narrower down the chain. I also wouldn't take the word of whoever I'm restricting, and that includes the tool descriptions they wrote
+5. Run what the agent writes in a sandbox, but don't bet everything on it. Models get out of sandboxes more often than they used to. So keep secrets out of it, and don't let anything outside trust what comes out
+6. Anywhere that gets even one bit of the agent's context can be used to leak the whole thing. So watch the data flows and the trust boundaries. Ideally you build a mandatory access model
+7. Treat what the model says as if an attacker wrote it. It's data, and the system decides what it's allowed to trigger
+8. You should be able to roll back anything the agent gets wrong, and the system should cap how much damage one mistake can do
 
 ## Principles
 
