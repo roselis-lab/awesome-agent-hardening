@@ -10,6 +10,14 @@ This list is for developers who build agents. It assumes any model output can be
 
 If the list saves you time, give it a star so other people who build agents can find it too.
 
+How I decide whether something counts as a control:
+
+1. Assume the worst output. Whatever went in, treat what the model says as if an attacker wrote it, and decide by what that output can reach
+2. A control sits outside the model. A prompt or a classifier lowers the odds, and that's all it does
+3. If it's cheap to get around and nobody would notice, I don't count it as a control. Shadow AI is one of the sharpest problems an enterprise has, and one of the most underrated. An agent with computer use or web scraping looks exactly like its user and goes straight past your centralized defenses, the same ones that usually make the UX worse. So with AI this decentralized, doing security means looking after UX
+4. Test it without the model: call the tool yourself with the bad value and see what happens. Don't fall for the prompt-testing hype before you have a threat model and have read rules 1 and 2 properly. Sometimes plain [Burp Suite](https://portswigger.net/burp) does the job better
+5. Rights only get narrower down the chain. And I wouldn't take the word of the party I'm restricting, which includes the tool descriptions it wrote
+
 Each control names the principle it applies:
 
 | Principle         | What holds whatever the model says                                                                 |
@@ -220,4 +228,4 @@ Contributions are welcome. Please read the [contribution guidelines](contributin
 
 ## Footnotes
 
-Compiled by [Alexander Goncharov](https://www.linkedin.com/in/alexander-goncharov-600510234/). Pica the magpie is the mascot of his talks, drawn after Charley Harper. Each scene shows the problem its section is about.
+Compiled by [Alexander Goncharov](https://www.linkedin.com/in/goncharov-aleksandr/). Pica the magpie is the mascot of his talks, drawn after Charley Harper. Each scene shows the problem its section is about.
