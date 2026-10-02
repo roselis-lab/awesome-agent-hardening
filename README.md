@@ -224,4 +224,12 @@ Contributions are welcome. Please read the [contribution guidelines](contributin
 
 ## Footnotes
 
-Compiled by [Alexander Goncharov](https://www.linkedin.com/in/goncharov-aleksandr/). Pica the magpie is the mascot of his talks, drawn after Charley Harper. Each scene shows the problem its section is about.
+This is Pica, which is just Latin for magpie. She has terrible judgment around shiny things, and she is in every picture on this page
+
+She comes from [The Magpie Developer](https://blog.codinghorror.com/the-magpie-developer/), a 2008 essay by Jeff Atwood about programmers who haul every shiny new thing back to the nest. These days the shiny thing is an AI agent and people plug it straight into production, so the essay finally got its bird
+
+Her nest is the agent's environment, and it's a mess. Her own token is in there, next to a badge with someone else's name on it and an old key that prod still accepts for some reason. The violet ring on her leg is a bird band, so she at least has an identity of her own, unlike most agents
+
+A note for ornithologists: real magpies don't care about shiny things. Researchers at the University of Exeter [checked](https://link.springer.com/article/10.1007/s10071-014-0794-4). The birds showed no interest, and the wild ones were nervous around anything new. Pica is careful too, briefly. She looks the token over, tilts her head, looks again, and takes it anyway. Then she gets whatever the system in that section got. In one case that's an explosion
+
+Compiled by [Alexander Goncharov](https://www.linkedin.com/in/goncharov-aleksandr/). Pica is the mascot of his talks, drawn after Charley Harper
