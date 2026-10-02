@@ -16,7 +16,6 @@ The list is for people who build agents. A link belongs here if it helps a devel
 - One link per line: `- [Title](https://example.com) - Description.`
 - Use the resource's own title.
 - Write the description yourself, in one sentence that starts with a capital letter and ends with a period. Don't repeat the title in it.
-- For a control, start the description with the principle it applies: `Least privilege:`, `Isolation:`, `Data flow control:`, `Output handling:` or `Recoverability:`.
 - Put the link in the section for the capability it is about. If it fits several, pick the one where a developer would look first. Each link appears once.
 - Add new items at the end of their section.
 
