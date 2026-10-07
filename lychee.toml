@@ -3,6 +3,7 @@ exclude = [
   "^https://www\.aim\.security/",
   "^https://www\.nccoe\.nist\.gov/",
   "^https://fortune\.com/",
+  "^https://www\.linkedin\.com/",
 ]
 max_retries = 3
 timeout = 30
