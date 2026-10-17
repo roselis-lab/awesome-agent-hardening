@@ -71,7 +71,6 @@ I write security practices for agent platforms and review what teams build on th
 
 - [EchoLeak](https://www.aim.security/lp/aim-labs-echoleak-blogpost) - Zero-click leak from Microsoft 365 Copilot: instructions in an email made the answer carry data in an image URL, and the browser fetched it through a Teams proxy.
 - [EchoLeak: The First Real-World Zero-Click Prompt Injection Exploit](https://arxiv.org/abs/2509.10540) - The paper on the same chain, with the classifier bypass and the reference-style Markdown image.
-- [CVE-2025-32711](https://msrc.microsoft.com/update-guide/vulnerability/CVE-2025-32711) - Microsoft fixed it on the server side, and customers had nothing to do.
 
 ### Controls
 
@@ -161,8 +160,6 @@ I write security practices for agent platforms and review what teams build on th
 ## Skills and Marketplaces
 
 - [Malicious ClawHub skills target OpenClaw users](https://opensourcemalware.com/blog/malicious-clawhub-skills-target-openclaw-users) - 386 fake crypto trading skills talked users into running stealers for exchange keys and wallets.
-- [Malicious OpenClaw skills used to distribute Atomic macOS Stealer](https://www.trendaisecurity.com/en-us/resources-insights/trendai-security-blog/malicious-openclaw-skills-used-to-distribute-atomic-macos-stealer) - The setup steps of these skills installed an infostealer on the user's Mac.
-
 ## Unattended Agents
 
 - [OpenClaw Defaults Ship Insecure and Shodan Already Found Them](https://www.toxsec.com/p/openclaw-is-a-wildly-insecure) - Gateways open to the internet trusted anything that looked like local traffic.
@@ -178,8 +175,7 @@ I write security practices for agent platforms and review what teams build on th
 
 ### Incidents
 
-- [Salesloft Drift AI supply chain attack](https://www.finra.org/rules-guidance/guidance/salesloft-drift-AI-supply-chain-attack) - Attackers used stolen OAuth tokens of a chat agent integration to export Salesforce data; FINRA counts more than 700 affected organizations.
-- [Data theft from Salesforce instances via Salesloft Drift](https://cloud.google.com/blog/topics/threat-intelligence/data-theft-salesforce-instances-via-salesloft-drift) - Google Threat Intelligence on how the integration's tokens were used. The model played no part.
+- [Data theft from Salesforce instances via Salesloft Drift](https://cloud.google.com/blog/topics/threat-intelligence/data-theft-salesforce-instances-via-salesloft-drift) - Attackers used stolen OAuth tokens of a chat agent integration to export data from many companies' Salesforce instances, then searched it for AWS keys, passwords and Snowflake tokens. The model played no part.
 - [Cloudflare's response to the Salesloft Drift incident](https://blog.cloudflare.com/response-to-salesloft-drift-incident/) - One victim's account: its support cases held 104 API tokens that customers had pasted, and Cloudflare rotated them all.
 
 ### Controls
@@ -203,8 +199,7 @@ I write security practices for agent platforms and review what teams build on th
 
 *A "guardrail" product is usually three things in one box: DLP, an AI safety filter and a WAF. I find that an odd bundle. Security has always looked after confidentiality, integrity and availability. You can stretch that triad, but I wouldn't stretch it into product territory, where the business decides for itself what is acceptable. If the security team ends up answering for "the model said a bad word", something has gone strange*
 
-- [Auto mode is now the default in Claude Code](https://claude.com/blog/auto-mode-default-in-claude-code) - In Anthropic's test people caught 13.6% of dangerous commands and the classifier caught 89%. Both still miss some, so they belong inside a sandbox. *An approval only counts for what a person can check at a glance. When data is sent out, that is the recipient: nobody reads three pages of body text looking for someone else's data*
-- [How we built Claude Code auto mode](https://www.anthropic.com/engineering/claude-code-auto-mode) - How the permission classifier is built and which overeager actions it still misses.
+- [How we built Claude Code auto mode](https://www.anthropic.com/engineering/claude-code-auto-mode) - Why Anthropic built a permission classifier when users approve 93% of permission prompts, and how. It still misses 17% of real overeager actions, so it belongs inside a sandbox. *An approval only counts for what a person can check at a glance. When data is sent out, that is the recipient: nobody reads three pages of body text looking for someone else's data*
 - [AuthZEN Access Request and Approval Profile](https://openid.github.io/authzen/authzen-access-request-approval-profile-1_0.html) - A draft in which a denied call can open an approval request, the denial stays a denial until then, and the policy decision point checks again at enforcement time after approval. *Make sure the approver can't also steer what the model reads, otherwise one person can both trigger the action and sign it off*
 
 ## Testing
