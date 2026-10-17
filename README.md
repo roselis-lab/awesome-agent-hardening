@@ -26,7 +26,6 @@ If the list saves you time, give it a star so other people who build agents can 
 - [Human Approval and Classifiers](#human-approval-and-classifiers)
 - [Testing](#testing)
 - [Frameworks](#frameworks)
-- [Lectures](#lectures)
 
 ## Ground Rules
 
@@ -225,10 +224,6 @@ I write security practices for agent platforms and review what teams build on th
 - [MITRE ATLAS](https://atlas.mitre.org/) - Adversary tactics and techniques against AI systems, in the style of ATT&CK.
 - [MAESTRO](https://cloudsecurityalliance.org/blog/2025/02/06/agentic-ai-threat-modeling-framework-maestro) - The Cloud Security Alliance's threat modeling framework for agentic AI.
 
-## Lectures
-
-[Безопасность агентов для тех, кто их строит](lectures/shad-2026-09.md), Yandex School of Data Analysis, 29 September 2026, in Russian, with [slides](lectures/shad-2026-09.pdf). One agent gets its capabilities one at a time, and each one comes with a real incident and the place to stop it.
-
 ## Contributing
 
 Contributions are welcome. Please read the [contribution guidelines](contributing.md) first.
@@ -242,5 +237,7 @@ She comes from [The Magpie Developer](https://blog.codinghorror.com/the-magpie-d
 Her nest is the agent's environment, and it's a mess. Her own token is in there, next to a badge with someone else's name on it and an old key that prod still accepts for some reason. The violet ring on her leg is a bird band, so she at least has an identity of her own, unlike most agents
 
 A note for ornithologists: real magpies don't care about shiny things. Researchers at the University of Exeter [checked](https://link.springer.com/article/10.1007/s10071-014-0794-4). The birds showed no interest, and the wild ones were nervous around anything new. Pica is careful too, briefly. She looks the token over, tilts her head, looks again, and takes it anyway. Then she gets whatever the system in that section got. In one case that's an explosion
+
+There's also a lecture in Russian, [Безопасность агентов для тех, кто их строит](lectures/shad-2026-09.md), from the Yandex School of Data Analysis on 29 September 2026, with [slides](lectures/shad-2026-09.pdf). One agent gets its capabilities one at a time, and each one comes with a real incident and the place to stop it
 
 Compiled by [Alexander Goncharov](https://www.linkedin.com/in/goncharov-aleksandr/).
