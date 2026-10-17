@@ -33,7 +33,7 @@ If the list saves you time, give it a star so other people who build agents can 
 I write security practices for agent platforms and review what teams build on them. Boiled down, it's eight rules
 
 1. A control has to sit outside the model. A prompt or a classifier only lowers the odds
-2. If it's cheap to get around and nobody would notice, I don't count it as a control. This is why I think shadow AI is badly underrated in enterprises, and it's one of the sharpest problems they have. Give an agent computer use or web scraping and it looks exactly like its user, so it goes straight past the centralized defenses, which were often making the UX worse anyway. With AI this decentralized you can't do security without looking after UX
+2. If it's cheap to get around and nobody would notice, I don't count it as a control
 3. Test a control without the model in the loop. Call the tool yourself with the bad value and see what happens. And don't fall for the prompt-testing hype until you have a threat model and have read rules 1 and 2 properly. Sometimes plain [Burp Suite](https://portswigger.net/burp) does the job better
 4. Give the agent the least privilege the task needs. Rights only get narrower down the chain. I also wouldn't take the word of whoever I'm restricting, and that includes the tool descriptions they wrote
 5. Run what the agent writes in a sandbox, but don't bet everything on it. Models get out of sandboxes more often than they used to. So keep secrets out of it, and don't let anything outside trust what comes out
@@ -151,6 +151,8 @@ I write security practices for agent platforms and review what teams build on th
 - [E2B](https://github.com/e2b-dev/infra) - Open-source infrastructure that runs agent code in a Firecracker microVM per sandbox. *Self-hosting is one machine by their Compose, or Terraform into a cloud account. As of October 2026 I didn't find a documented path to an on-prem cluster, so count that in before an internal rollout*
 
 ## Browser
+
+*I think shadow AI is badly underrated in enterprises, and it's one of the sharpest problems they have. Give an agent computer use or web scraping and it looks exactly like its user, so it goes straight past the centralized defenses, which were often making the UX worse anyway. With AI this decentralized you can't do security without looking after UX*
 
 ### Incidents
 
