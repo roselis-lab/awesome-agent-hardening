@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="392" viewBox="0 0 680 392" role="img" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <title>Where an agent code sandbox sits</title>
+  <desc>Untrusted agent code runs on a swappable isolation boundary (runc, gVisor or a microVM) above the shared host kernel. A sandbox manager wraps it, and Kubernetes places it on a node and picks the runtime.</desc>
+
+  <rect x="40" y="40" width="600" height="330" rx="14" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="1" stroke-dasharray="6 4"/>
+  <text x="56" y="64" font-size="14" font-weight="500" fill="#2C2C2A">Kubernetes (optional)</text>
+  <text x="56" y="82" font-size="12" fill="#5F5E5A">schedules the pod on a node, picks the runtime</text>
+
+  <rect x="70" y="100" width="540" height="258" rx="12" fill="#FFFFFF" stroke="#5F5E5A" stroke-width="1"/>
+  <text x="86" y="124" font-size="14" font-weight="500" fill="#2C2C2A">Node (one machine)</text>
+
+  <rect x="118" y="140" width="444" height="166" rx="10" fill="#EEEDFE" stroke="#534AB7" stroke-width="1" stroke-dasharray="6 4"/>
+  <text x="340" y="159" font-size="14" font-weight="500" fill="#26215C" text-anchor="middle" dominant-baseline="central">Sandbox manager</text>
+  <text x="340" y="177" font-size="12" fill="#3C3489" text-anchor="middle" dominant-baseline="central">API, lifecycle, some also tokens and network</text>
+  <text x="340" y="193" font-size="12" fill="#3C3489" text-anchor="middle" dominant-baseline="central">E2B, microsandbox, Modal, OpenShell, OpenSandbox</text>
+
+  <rect x="150" y="203" width="380" height="34" rx="8" fill="#FAEEDA" stroke="#BA7517" stroke-width="1"/>
+  <text x="340" y="220" font-size="14" font-weight="500" fill="#412402" text-anchor="middle" dominant-baseline="central">Untrusted agent code</text>
+
+  <rect x="150" y="245" width="380" height="52" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="1"/>
+  <text x="340" y="262" font-size="14" font-weight="500" fill="#04342C" text-anchor="middle" dominant-baseline="central">Boundary (swap one rung)</text>
+  <text x="340" y="280" font-size="12" fill="#085041" text-anchor="middle" dominant-baseline="central">weaker:  runc  .  gVisor  .  microVM (KVM)  :stronger</text>
+
+  <rect x="90" y="314" width="500" height="38" rx="8" fill="#D3D1C7" stroke="#5F5E5A" stroke-width="1"/>
+  <text x="340" y="333" font-size="14" font-weight="500" fill="#2C2C2A" text-anchor="middle" dominant-baseline="central">Host kernel and hardware (shared)</text>
+</svg>
