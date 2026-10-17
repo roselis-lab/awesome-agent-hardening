@@ -60,6 +60,8 @@ I write security practices for agent platforms and review what teams build on th
 </p>
 
 - [Moffatt v. Air Canada, 2024 BCCRT 149](https://loyaltylobby.com/wp-content/uploads/2024/02/Air-Canada-Tribunal-2024bccrt149.pdf) - A tribunal held the airline to a refund rule its chatbot made up. Prices and policy have to come from the system, not from model text.
+- [NYC's AI Chatbot Tells Businesses to Break the Law](https://themarkup.org/news/2024/03/29/nycs-ai-chatbot-tells-businesses-to-break-the-law) - The Markup found New York City's official business chatbot telling owners they could turn away housing vouchers, go cash-free and take a cut of workers' tips, all against city law.
+- [Company apologizes after AI support agent invents policy that causes user uproar](https://arstechnica.com/ai/2025/04/cursor-ai-support-bot-invents-fake-policy-and-triggers-user-uproar/) - Cursor's support bot told a user who kept getting logged out that one device per subscription was the policy. There was no such policy, users cancelled, and Cursor now labels AI answers in support email.
 
 ## Mail and RAG
 
@@ -150,11 +152,19 @@ I write security practices for agent platforms and review what teams build on th
 
 ## Browser
 
+### Incidents
+
 - [Agentic browser security: indirect prompt injection in Perplexity Comet](https://brave.com/blog/comet-prompt-injection/) - Hidden text in a Reddit comment made the browser agent open the user's logged-in email, read a one-time code and post it in the thread.
+- [Unseeable prompt injections in screenshots](https://brave.com/blog/unseeable-prompt-injections/) - Brave's follow-up: faint text in an image reached Comet's model as commands once the user asked about a screenshot, and Fellou sent a page's text to its model as soon as the user asked to open the site.
+
+### Controls
+
+- [Architecting Security for Agentic Capabilities in Chrome](https://blog.google/security/architecting-security-for-agentic/) - Each task gets the origins the agent may read and a narrower set where it may click and type, a gate that page content can't reach approves new origins, model-written URLs pass a deterministic check, and payments and messages wait for the user.
 
 ## Memory
 
 - [Spyware Injection Into Your ChatGPT's Long-Term Memory](https://embracethered.com/blog/posts/2024/chatgpt-macos-app-persistent-data-exfiltration/) - A prompt injection wrote itself into ChatGPT's long-term memory and leaked later conversations through image URLs.
+- [Hacking Gemini's Memory with Prompt Injection and Delayed Tool Invocation](https://embracethered.com/blog/posts/2025/gemini-memory-persistence-prompt-injection/) - A document the user asked Gemini to summarize told it to end with a question, and the user's ordinary "yes" fired the memory tool and saved made-up facts about them. Google rated it low likelihood and low impact.
 
 ## Skills and Marketplaces
 
