@@ -203,9 +203,9 @@ I write security practices for agent platforms and review what teams build on th
 
 *Most of the time these tools burn compute testing alignment, which is a safety question: will the model say something it shouldn't. The labs that train the models already measure that and publish it, see the [Anthropic system cards](https://www.anthropic.com/system-cards) and the [OpenAI Deployment Safety Hub](https://deploymentsafety.openai.com/). AI security asks what the model's output can reach in your system. So write the threat model first and only then see whether a scanner answers anything in it. If you don't train models yourself, I honestly don't know what you'd need one for in an enterprise*
 
-- [Promptfoo](https://www.promptfoo.dev/docs/red-team/) - Generates adversarial inputs for an LLM application and evaluates the responses.
-- [garak](https://github.com/NVIDIA/garak) - NVIDIA's LLM vulnerability scanner.
-- [PyRIT](https://github.com/microsoft/PyRIT) - Microsoft's open-source framework for finding risks in generative AI systems.
+- [Promptfoo](https://www.promptfoo.dev/docs/red-team/) - Generates adversarial inputs for an LLM application and grades the responses. Next to jailbreaks and harmful content it has plugins for broken object-level and function-level authorization, so it can check what the app lets one user reach.
+- [garak](https://github.com/NVIDIA/garak) - NVIDIA's scanner that sends probes for prompt injection, jailbreaks, data leakage, hallucination and toxicity to a model and runs detectors over the replies.
+- [PyRIT](https://github.com/microsoft/PyRIT) - Microsoft's framework for scripting attacks on a generative AI system from targets, converters and scorers, including multi-turn strategies such as Crescendo and TAP.
 
 ## Frameworks
 
