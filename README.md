@@ -134,7 +134,7 @@ I write security practices for agent platforms and review what teams build on th
 </p>
 
 <p align="center">
-  <img src="media/isolation-ladder.svg" width="620" alt="Untrusted agent code runs inside a swappable isolation boundary on the shared host kernel: a container step is Docker, Podman or LXC with runc or gVisor, a microVM step is Firecracker or libkrun; a separate sandbox manager builds the sandbox and holds the tokens, and Kubernetes places it on a node.">
+  <img src="media/isolation-ladder.svg" width="620" alt="Two nodes under Kubernetes. On the trusted orchestrator node the agent orchestrator holds the tokens (LLM, MCP) and drives the loop. Over one channel it sends code and data down and gets a JSON result back. On a separate sandbox node a supervisor with no tokens builds the sandbox and feeds it code; untrusted agent code runs inside a swappable isolation boundary, a container step with runc or gVisor via Docker, Podman or LXC (weaker) or a microVM step with Firecracker or libkrun that needs KVM (stronger). Each node has its own host kernel, so a sandbox escape reaches only the sandbox node, not the tokens.">
 </p>
 
 - [Making Claude Code more secure and autonomous with sandboxing](https://www.anthropic.com/engineering/claude-code-sandboxing) - The filesystem and the network are isolated together, and permission prompts dropped by 84%.
