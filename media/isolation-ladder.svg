@@ -1,27 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="680" height="392" viewBox="0 0 680 392" role="img" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="452" viewBox="0 0 680 452" role="img" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
   <title>Where an agent code sandbox sits</title>
-  <desc>Untrusted agent code runs on a swappable isolation boundary above the shared host kernel. A container step is Docker, Podman or LXC with runc or gVisor; a microVM step is Firecracker or libkrun and needs KVM. A sandbox manager wraps it, and Kubernetes places it on a node and picks the runtime.</desc>
+  <desc>Untrusted agent code runs inside a swappable isolation boundary that sits on the shared host kernel. A container step is Docker, Podman or LXC with runc or gVisor; a microVM step is Firecracker or libkrun and needs KVM. A separate sandbox manager builds the sandbox, feeds it code and holds the tokens. Kubernetes places it on a node and picks the runtime.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="#5F5E5A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
 
-  <rect x="40" y="40" width="600" height="344" rx="14" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="1" stroke-dasharray="6 4"/>
+  <rect x="40" y="40" width="600" height="404" rx="14" fill="#F1EFE8" stroke="#5F5E5A" stroke-width="1" stroke-dasharray="6 4"/>
   <text x="56" y="64" font-size="14" font-weight="500" fill="#2C2C2A">Kubernetes (optional)</text>
   <text x="56" y="82" font-size="12" fill="#5F5E5A">schedules the pod on a node, picks the runtime</text>
 
-  <rect x="70" y="100" width="540" height="272" rx="12" fill="#FFFFFF" stroke="#5F5E5A" stroke-width="1"/>
+  <rect x="70" y="100" width="540" height="330" rx="12" fill="#FFFFFF" stroke="#5F5E5A" stroke-width="1"/>
   <text x="86" y="124" font-size="14" font-weight="500" fill="#2C2C2A">Node (one machine)</text>
 
-  <rect x="118" y="140" width="444" height="180" rx="10" fill="#EEEDFE" stroke="#534AB7" stroke-width="1" stroke-dasharray="6 4"/>
-  <text x="340" y="159" font-size="14" font-weight="500" fill="#26215C" text-anchor="middle" dominant-baseline="central">Sandbox manager (outside the sandbox)</text>
-  <text x="340" y="177" font-size="12" fill="#3C3489" text-anchor="middle" dominant-baseline="central">builds it, feeds code, takes results, holds tokens</text>
+  <rect x="90" y="140" width="500" height="66" rx="10" fill="#EEEDFE" stroke="#534AB7" stroke-width="1"/>
+  <text x="340" y="159" font-size="14" font-weight="500" fill="#26215C" text-anchor="middle" dominant-baseline="central">Sandbox manager (trusted, outside the sandbox)</text>
+  <text x="340" y="177" font-size="12" fill="#3C3489" text-anchor="middle" dominant-baseline="central">holds tokens; builds the sandbox, feeds code, takes results</text>
   <text x="340" y="193" font-size="12" fill="#3C3489" text-anchor="middle" dominant-baseline="central">E2B, microsandbox, Modal, OpenShell, OpenSandbox</text>
 
-  <rect x="150" y="203" width="380" height="34" rx="8" fill="#FAEEDA" stroke="#BA7517" stroke-width="1"/>
-  <text x="340" y="220" font-size="14" font-weight="500" fill="#412402" text-anchor="middle" dominant-baseline="central">Untrusted agent code</text>
+  <line x1="340" y1="206" x2="340" y2="222" stroke="#5F5E5A" stroke-width="1.5" marker-end="url(#arrow)"/>
 
-  <rect x="150" y="245" width="380" height="66" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="1"/>
-  <text x="340" y="263" font-size="14" font-weight="500" fill="#04342C" text-anchor="middle" dominant-baseline="central">Boundary (swap one step)</text>
-  <text x="340" y="283" font-size="12" fill="#085041" text-anchor="middle" dominant-baseline="central">container: runc or gVisor via Docker/Podman/LXC (weaker)</text>
-  <text x="340" y="299" font-size="12" fill="#085041" text-anchor="middle" dominant-baseline="central">microVM: Firecracker or libkrun, needs KVM (stronger)</text>
+  <rect x="90" y="224" width="500" height="120" rx="10" fill="#E1F5EE" stroke="#0F6E56" stroke-width="1"/>
+  <text x="340" y="242" font-size="14" font-weight="500" fill="#04342C" text-anchor="middle" dominant-baseline="central">Sandbox: the isolation boundary (swap one step)</text>
+  <rect x="110" y="256" width="460" height="32" rx="6" fill="#FAEEDA" stroke="#BA7517" stroke-width="1"/>
+  <text x="340" y="272" font-size="14" font-weight="500" fill="#412402" text-anchor="middle" dominant-baseline="central">Untrusted agent code runs in here</text>
+  <text x="340" y="302" font-size="12" fill="#085041" text-anchor="middle" dominant-baseline="central">container: runc or gVisor via Docker/Podman/LXC (weaker)</text>
+  <text x="340" y="320" font-size="12" fill="#085041" text-anchor="middle" dominant-baseline="central">microVM: Firecracker or libkrun, needs KVM (stronger)</text>
 
-  <rect x="90" y="328" width="500" height="38" rx="8" fill="#D3D1C7" stroke="#5F5E5A" stroke-width="1"/>
-  <text x="340" y="347" font-size="14" font-weight="500" fill="#2C2C2A" text-anchor="middle" dominant-baseline="central">Host kernel and hardware (shared)</text>
+  <rect x="90" y="356" width="500" height="40" rx="8" fill="#D3D1C7" stroke="#5F5E5A" stroke-width="1"/>
+  <text x="340" y="376" font-size="14" font-weight="500" fill="#2C2C2A" text-anchor="middle" dominant-baseline="central">Host kernel and hardware (shared)</text>
 </svg>
