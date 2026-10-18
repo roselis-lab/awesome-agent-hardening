@@ -134,7 +134,7 @@ I write security practices for agent platforms and review what teams build on th
 </p>
 
 <p align="center">
-  <img src="media/isolation-ladder.svg" width="620" alt="Untrusted agent code runs on a swappable boundary (runc, gVisor or a microVM) above the shared host kernel; a sandbox manager wraps it and Kubernetes places it on a node.">
+  <img src="media/isolation-ladder.svg" width="620" alt="Untrusted agent code runs on a swappable boundary above the shared host kernel: a container rung is Docker, Podman or LXC with runc or gVisor, a microVM rung is Firecracker or libkrun; a sandbox manager wraps it and Kubernetes places it on a node.">
 </p>
 
 - [Making Claude Code more secure and autonomous with sandboxing](https://www.anthropic.com/engineering/claude-code-sandboxing) - The filesystem and the network are isolated together, and permission prompts dropped by 84%.
