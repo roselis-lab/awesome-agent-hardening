@@ -238,6 +238,6 @@ Her nest is the agent's environment, and it's a mess. Her own token is in there,
 
 A note for ornithologists: real magpies don't care about shiny things. Researchers at the University of Exeter [checked](https://link.springer.com/article/10.1007/s10071-014-0794-4). The birds showed no interest, and the wild ones were nervous around anything new. Pica is careful too, briefly. She looks the token over, tilts her head, looks again, and takes it anyway. Then she gets whatever the system in that section got. In one case that's an explosion
 
-There's also a lecture in Russian, [Безопасность агентов для тех, кто их строит](lectures/shad-2026-09.md), from the Yandex School of Data Analysis on 29 September 2026, with [slides](lectures/shad-2026-09.pdf). One agent gets its capabilities one at a time, and each one comes with a real incident and the place to stop it
+There's also a lecture, [Security of AI agents for those who build them](https://github.com/roselis-lab/agent-security-for-builders), from the Yandex School of Data Analysis on 29 September 2026, with slides. One agent gets its capabilities one at a time, and each one comes with a real incident and the place to stop it
 
 Compiled by [Alexander Goncharov](https://www.linkedin.com/in/goncharov-aleksandr/).
